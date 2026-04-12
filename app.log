@@ -1,0 +1,22 @@
+
+> dumb-ti@0.1.0 dev
+> next dev -p 3000
+
+▲ Next.js 16.2.3 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.3.0.11:3000
+✓ Ready in 533ms
+
+ GET / 200 in 487ms (next.js: 290ms, application-code: 197ms)
+⚠ Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from "43.128.123.207".
+Cross-origin access to Next.js dev resources is blocked by default for safety.
+
+To allow this host in development, add it to "allowedDevOrigins" in next.config.js and restart the dev server:
+
+// next.config.js
+module.exports = {
+  allowedDevOrigins: ['43.128.123.207'],
+}
+
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ GET / 200 in 69ms (next.js: 5ms, application-code: 64ms)
