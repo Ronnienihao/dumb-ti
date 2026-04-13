@@ -1,121 +1,25 @@
 export interface Personality {
   name: string;
-  quote: string;
-  description: string;
+  quote: string; quoteCN: string;
+  description: string; descriptionCN: string;
   image: string;
   axes: { E: number; S: number; M: number; V: number };
 }
 export const personalities: Record<string, Personality> = {
-  STAR: {
-    name: "STAR",
-    quote: "The universe is a poorly funded indie film, and I'm the only A-lister on set.",
-    description: "You wake up every day and choose main character energy. You hustle, you glow, and you are proudly delulu enough to turn a grocery run into a cinematic masterpiece. Sure, your dramatic flair might make people roll their eyes, but your raw, unapologetic \"I'm the IT girl/boy\" vitality is honestly iconic. You magnificent, exhausting star—never let anyone dim your premium lighting.",
-    image: "/assets/personalities/STAR.jpg",
-    axes: { E: 0.8, S: 0.9, M: 0.8, V: 0.9 },
-  },
-  STAN: {
-    name: "STAN",
-    quote: "I will take a bullet for my bestie, but I need to mentally prepare to order a pizza.",
-    description: "The ultimate ride-or-die. You channel all your hustle, glow, and romantic filters into hyping up literally everyone but yourself. If your bestie or bias needs defense, you're throwing hands; if you need help, you apologize for existing. You absolute gem, when are you going to start stanning yourself?",
-    image: "/assets/personalities/STAN.jpg",
-    axes: { E: 0.8, S: 0.7, M: 0.7, V: -0.7 },
-  },
-  HELP: {
-    name: "HELP",
-    quote: "I'm having a severe mental breakdown, but make it aesthetic.",
-    description: "You are a high-functioning disaster. You see the world for the burning trash fire it is, yet you still put on a full face of makeup to go fix it. You've somehow weaponized your own burnout, turning a mental breakdown into a breathtaking performance. Honestly, your ability to slay while hanging by a thread is a terrifying superpower. Please schedule a nap.",
-    image: "/assets/personalities/HELP.jpg",
-    axes: { E: 0.9, S: 0.8, M: -0.6, V: 0.7 },
-  },
-  BOSS: {
-    name: "BOSS",
-    quote: "I don't have a personality, I have a career. Just kidding, I only have back pain.",
-    description: "Capitalism's favorite premium soldier. You see right through the corporate matrix, completely stripped of any delusions, yet you still reply \"Sounds great, thanks!\" at 11 PM with impeccable tone. You ruthless corporate assassin, get your bag and get out.",
-    image: "/assets/personalities/BOSS.jpg",
-    axes: { E: 0.9, S: 0.6, M: -0.8, V: -0.7 },
-  },
-  CORE: {
-    name: "CORE",
-    quote: "My life is falling apart, but my Instagram grid is healing.",
-    description: "You are living in a meticulously curated Pinterest board. You hustle hard, but strictly to fund your pristine, highly delusional private universe. You avoid networking because actual human beings ruin your color palette. You stunning, untouchable artist—keep serving looks from your ivory tower.",
-    image: "/assets/personalities/CORE.jpg",
-    axes: { E: 0.7, S: -0.6, M: 0.8, V: 0.8 },
-  },
-  CLWN: {
-    name: "CLWN",
-    quote: "I've rehearsed my Oscar speech 100 times for a movie I haven't been cast in.",
-    description: "The clumsy, earnest dreamer. You grind in the shadows, avoid the spotlight, yet harbor a massive, delulu inner universe where your grand comeback is just around the corner. Your \"try again tomorrow\" resilience is ridiculously endearing in a cynical world. You lovable underdog, your weird magic is totally valid.",
-    image: "/assets/personalities/CLWN.jpg",
-    axes: { E: 0.7, S: -0.7, M: 0.8, V: -0.6 },
-  },
-  MESS: {
-    name: "MESS",
-    quote: "Chaos is my personal brand.",
-description: "A walking contradiction of dark academia and villain energy. You hustle hard but are profoundly cynical; you loathe small talk but emit an unignorable, magnetic aura. People are intimidated by your brooding silence, but they can't look away. You dangerously alluring enigma, never lose your sharp edge.",
-image: "/assets/personalities/MESS.jpg",
-axes: { E: 0.8, S: -0.8, M: -0.7, V: 0.7 },
-},
-QUIT: {
-name: "QUIT",
-quote: "Physically here, mentally touching grass in 2035.",
-description: "The absolute zenith of energy efficiency. You execute your tasks flawlessly and vanish like a ghost, refusing to offer a single ounce of unpaid emotional labor. Mastering the art of being unbothered to this chilling degree makes you look like an untraceable, top-tier assassin. Teach us your ways.",
-image: "/assets/personalities/QUIT.jpg",
-axes: { E: 0.6, S: -0.8, M: -0.8, V: -0.8 },
-},
-SLAY: {
-name: "SLAY",
-quote: "Zero productivity, 100% vibes.",
-description: "The effortless icon. You do absolutely zero heavy lifting, yet you dominate the social scene with terrifying charisma. Armed with aggressive delusion and impenetrable confidence, you turn an average hand into a royal flush. Your ability to never stress and still have everyone obsessed with your vibe is a maddeningly elite superpower.",
-image: "/assets/personalities/SLAY.jpg",
-axes: { E: -0.8, S: 0.9, M: 0.8, V: 0.9 },
-},
-DELU: {
-name: "DELU",
-quote: "Delulu is not just the solulu, it's my entire financial plan.",
-description: "The grandmaster of mental gymnastics. You might be rotting in bed physically, but in your mind, you are thriving. You skip the hard work and rely strictly on high-speed scrolling, manifesting, and rewriting reality to harvest joy. Your \"the universe will fix it\" logic is unhinged, but honestly? It is an invincible shield against real-world burnout.",
-image: "/assets/personalities/DELU.jpg",
-axes: { E: -0.7, S: 0.8, M: 0.9, V: -0.6 },
-},
-BRAT: {
-name: "BRAT",
-quote: "I didn't come to fit in, I came to make it everybody's problem.",
-description: "The chaotic neutral gremlin we love to hate. You see the world's hypocrisy, refuse to play the game, and respond with pure, unadulterated snark. You are the menace who ruins the peace but makes the group chat 100x funnier. Never stop being a problem.",
-image: "/assets/personalities/BRAT.jpg",
-axes: { E: -0.7, S: 0.8, M: -0.8, V: 0.8 },
-},
-TRSH: {
-name: "TRSH",
-quote: "I set the bar so low it's practically a tripping hazard in hell.",
-description: "The absolute ceiling of self-deprecating humor. You are brutally aware of your own uselessness, and instead of fixing it, you tweet about it for clout. Your \"I'm garbage, what are you gonna do about it?\" defense mechanism is the ultimate antidote to modern hustle culture. We are obsessed with your flawless honesty.",
-image: "/assets/personalities/TRSH.jpg",
-axes: { E: -0.8, S: 0.7, M: -0.8, V: -0.7 },
-},
-POET: {
-name: "POET",
-quote: "I'm not ghosting you, I'm just romanticizing my isolation.",
-description: "The modern-day brooding visionary. You reject the hustle and ghost everyone, but your inner world is rich enough to fill a trilogy. You rebrand your procrastination as \"creative incubation\" and wear your isolation like a crown of misunderstood genius. You lovely, lonely artist, please touch grass occasionally.",
-image: "/assets/personalities/POET.jpg",
-axes: { E: -0.7, S: -0.8, M: 0.8, V: 0.7 },
-},
-CAPY: {
-name: "CAPY",
-quote: "The world is literally burning, but I am cozy and well-hydrated.",
-description: "The zen master of the apocalypse. You don't hustle, you don't mingle, you don't romanticize, and you definitely don't doomscroll. Society is collapsing, and you're just chilling in your lane. Your ability to remain completely unbothered in a manic world is an insanely enviable, god-tier trait. You majestic capybara, stay cozy.",
-image: "/assets/personalities/CAPY.jpg",
-axes: { E: -0.8, S: -0.7, M: 0.7, V: -0.8 },
-},
-VILN: {
-name: "VILN",
-quote: "I could easily destroy my enemies, but my bed is simply too comfortable today.",
-description: "The cynical genius who logged off. You have the razor-sharp intellect to see through everyone's BS, but because humans are exhausting, you just opted out of the game. Your \"I could dominate, but I literally don't care\" vibe is unfathomably cool. Thank god you chose napping over world domination.",
-image: "/assets/personalities/VILN.jpg",
-axes: { E: -0.8, S: -0.9, M: -0.8, V: 0.8 },
-},
-PLNT: {
-name: "PLNT",
-quote: "Please do not perceive me. I am merely background foliage.",
-description: "The absolute peak of minimalist survival. No hustle, no socializing, no delusions, and zero main character complex. You fully embrace being an extra. Give you a dark corner and some Wi-Fi, and you will peacefully exist into the next century. Successfully lowering your desires and presence to this level makes you the ultimate anti-burnout icon.",
-image: "/assets/personalities/PLNT.jpg",
-axes: { E: -0.9, S: -0.9, M: -0.9, V: -0.9 },
-},
+  STAR: { name: "STAR", quote: "The universe is a poorly funded indie film, and I'm the only A-lister on set.", quoteCN: "整个世界都是我的草台班子，而我是唯一的常驻嘉宾。", description: "You wake up every day and choose main character energy. You hustle, you glow, and you are proudly delulu enough to turn a grocery run into a cinematic masterpiece.", descriptionCN: "活脱脱的行走的聚光灯。你努力、你发光、你盲目自信，硬生生把平庸的日常过成了奥斯卡提名纪录片。", image: "/assets/personalities/STAR.jpg", axes: { E: 0.8, S: 0.9, M: 0.8, V: 0.9 } },
+  STAN: { name: "STAN", quote: "I will take a bullet for my bestie, but I need to mentally prepare to order a pizza.", quoteCN: "我可以替我闺蜜挡子弹，但我自己点个外卖都需要做半小时心理建设。", description: "The ultimate ride-or-die. You channel all your hustle, glow, and romantic filters into hyping up literally everyone but yourself.", descriptionCN: "纯爱战神，最强辅助。你把所有的拼劲和滤镜全加在了别人身上。", image: "/assets/personalities/STAN.jpg", axes: { E: 0.8, S: 0.7, M: 0.7, V: -0.7 } },
+  HELP: { name: "HELP", quote: "I'm having a severe mental breakdown, but make it aesthetic.", quoteCN: "只要我发疯发得够优雅，就没有人能看出我想死。", description: "You are a high-functioning disaster. You see the world for the burning trash fire it is, yet you still put on a full face of makeup to go fix it.", descriptionCN: "表面控场女王/国王，内心碎成二维码。你看透了这破世界的本质，却依然卷起袖子一边骂街一边把活干得漂漂亮亮。", image: "/assets/personalities/HELP.jpg", axes: { E: 0.9, S: 0.8, M: -0.6, V: 0.7 } },
+  BOSS: { name: "BOSS", quote: "I don't have a personality, I have a career. Just kidding, I only have back pain.", quoteCN: "我没有个性，但我有一份事业。骗你的，我也没事业，我只有颈椎病。", description: "Capitalism's favorite premium soldier. You see right through the corporate matrix, completely stripped of any delusions.", descriptionCN: "资本主义最爱的顶级齿轮。你比谁都清醒，比谁都社畜，半夜三点还能带着完美的情绪价值回复老板消息。", image: "/assets/personalities/BOSS.jpg", axes: { E: 0.9, S: 0.6, M: -0.8, V: -0.7 } },
+  CORE: { name: "CORE", quote: "My life is falling apart, but my Instagram grid is healing.", quoteCN: "生活一团糟，但我的朋友圈必须高级。", description: "You are living in a meticulously curated Pinterest board. You hustle hard, but strictly to fund your pristine, highly delusional private universe.", descriptionCN: "活在精美滤镜里的高定玩家。你极其自律，但只为了维护你那个完美无瑕的“人设”。", image: "/assets/personalities/CORE.jpg", axes: { E: 0.7, S: -0.6, M: 0.8, V: 0.8 } },
+  CLWN: { name: "CLWN", quote: "I've rehearsed my Oscar speech 100 times for a movie I haven't been cast in.", quoteCN: "我已经排练了一百遍获奖感言，就等一个永远不会来的剧本。", description: "The clumsy, earnest dreamer. You grind in the shadows, avoid the spotlight, yet harbor a massive, delulu inner universe.", descriptionCN: "笨拙又真诚的逐梦者。你默默内卷，习惯性社恐，却在心里给自己加了一万层主角滤镜。", image: "/assets/personalities/CLWN.jpg", axes: { E: 0.7, S: -0.7, M: 0.8, V: -0.6 } },
+  MESS: { name: "MESS", quote: "Chaos is my personal brand.", quoteCN: "混乱就是我的个人品牌。", description: "A walking contradiction of dark academia and villain energy. You hustle hard but are profoundly cynical.", descriptionCN: "迷人又危险的暗黑学霸。你极度拼命，却又极度厌世。", image: "/assets/personalities/MESS.jpg", axes: { E: 0.8, S: -0.8, M: -0.7, V: 0.7 } },
+  QUIT: { name: "QUIT", quote: "Physically here, mentally touching grass in 2035.", quoteCN: "人在岗，心在 2035 年的沙滩。", description: "The absolute zenith of energy efficiency. You execute your tasks flawlessly and vanish like a ghost.", descriptionCN: "人类高效节能的巅峰之作。你尽职尽责地完成所有事，然后像一阵风一样消失。", image: "/assets/personalities/QUIT.jpg", axes: { E: 0.6, S: -0.8, M: -0.8, V: -0.8 } },
+SLAY: { name: "SLAY", quote: "Zero productivity, 100% vibes.", quoteCN: "生产力为零，但气场必须满分。", description: "The effortless icon. You do absolutely zero heavy lifting, yet you dominate the social scene with terrifying charisma.", descriptionCN: "天生的万人迷。你把“毫不费力”刻进了骨子里，不用拼命也能在社交场上如鱼得水。", image: "/assets/personalities/SLAY.jpg", axes: { E: -0.8, S: 0.9, M: 0.8, V: 0.9 } },
+DELU: { name: "DELU", quote: "Delulu is not just the solulu, it's my entire financial plan.", quoteCN: "妄想是我唯一的理财计划。", description: "The grandmaster of mental gymnastics. You might be rotting in bed physically, but in your mind, you are thriving.", descriptionCN: "精神胜利法的集大成者。你对现实生活重拳出击，但在自己的精神世界里风生水起。", image: "/assets/personalities/DELU.jpg", axes: { E: -0.7, S: 0.8, M: 0.9, V: -0.6 } },
+BRAT: { name: "BRAT", quote: "I didn't come to fit in, I came to make it everybody's problem.", quoteCN: "我不是来融入你们的，我是来给你们添堵的。", description: "The chaotic neutral gremlin we love to hate. You see the world's hypocrisy, refuse to play the game.", descriptionCN: "让人又爱又恨的混世魔王。你看透了这虚伪的世界，并且决定用“发疯”来拆穿它。", image: "/assets/personalities/BRAT.jpg", axes: { E: -0.7, S: 0.8, M: -0.8, V: 0.8 } },
+TRSH: { name: "TRSH", quote: "I set the bar so low it's practically a tripping hazard in hell.", quoteCN: "我把底线设得很低，低到连地狱里的小鬼都会被绊一跤。", description: "The absolute ceiling of self-deprecating humor. You are brutally aware of your own uselessness.", descriptionCN: "自黑界的天花板。你极其清醒地知道自己有多废，不仅不改，还要大方地嘲笑自己。", image: "/assets/personalities/TRSH.jpg", axes: { E: -0.8, S: 0.7, M: -0.8, V: -0.7 } },
+POET: { name: "POET", quote: "I'm not ghosting you, I'm just romanticizing my isolation.", quoteCN: "你们不懂我，这就是我与生俱来的高贵。", description: "The modern-day brooding visionary. You reject the hustle and ghost everyone.", descriptionCN: "赛博时代的林黛玉。你拒绝内卷，极度社恐，但你的精神世界极其丰富。", image: "/assets/personalities/POET.jpg", axes: { E: -0.7, S: -0.8, M: 0.8, V: 0.7 } },
+CAPY: { name: "CAPY", quote: "The world is literally burning, but I am cozy and well-hydrated.", quoteCN: "天塌下来有高个子顶着，我连头都懒得抬。", description: "The zen master of the apocalypse. You don't hustle, you don't mingle.", descriptionCN: "精神状态最稳定的活佛。你不拼命、不社交、不抱幻想也从不悲观。", image: "/assets/personalities/CAPY.jpg", axes: { E: -0.8, S: -0.7, M: 0.7, V: -0.8 } },
+VILN: { name: "VILN", quote: "I could easily destroy my enemies, but my bed is simply too comfortable today.", quoteCN: "拯救世界太累了，我还是在家里看着它毁灭吧。", description: "The cynical genius who logged off. You have the razor-sharp intellect to see through everyone's BS.", descriptionCN: "智商溢出的厌世王者。你拥有看穿一切虚伪的锐利目光。", image: "/assets/personalities/VILN.jpg", axes: { E: -0.8, S: -0.9, M: -0.8, V: 0.8 } },
+PLNT: { name: "PLNT", quote: "Please do not perceive me. I am merely background foliage.", quoteCN: "请不要注视我。我只是背景板里的一颗草。", description: "The absolute peak of minimalist survival. You fully embrace being an extra.", descriptionCN: "极简生存主义的最高境界。你不努力、不社交，你完全接受了自己是个路人甲的设定。", image: "/assets/personalities/PLNT.jpg", axes: { E: -0.9, S: -0.9, M: -0.9, V: -0.9 } },
 };
