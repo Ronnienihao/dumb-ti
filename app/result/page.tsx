@@ -1,71 +1,186 @@
 "use client";
-import { useSearchParams } from "next/navigation";
-import { useState, Suspense } from "react";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useState, useEffect, Suspense } from "react";
 import { personalities } from "@/lib/personalities";
+import { useSearchParams } from "next/navigation";
+
+const axisLabels = {
+  E: { pos: "Hustle", neg: "Rot" },
+  S: { pos: "Glow", neg: "Fade" },
+  M: { pos: "Delu", neg: "Raw" },
+  V: { pos: "Main", neg: "Side" },
+};
+
+const accentColors = ["#f4cf7a", "#ea98e6", "#83d4d6", "#bae089"];
+
 function ResultContent() {
   const searchParams = useSearchParams();
   const code = searchParams.get("p") ?? "PLNT";
   const p = personalities[code] ?? personalities["PLNT"];
-  const [lang, setLang] = useState<"EN" | "CN">("EN");
-  const axes = [
-    { label: lang === "EN" ? "Hustle / Rot" : "拼劲 / 躺平", val: p.axes.E, color: "#f4cf7a" },
-    { label: lang === "EN" ? "Glow / Fade" : "闪耀 / 透明", val: p.axes.S, color: "#ea98e6" },
-    { label: lang === "EN" ? "Delu / Raw" : "妄想 / 现实", val: p.axes.M, color: "#83d4d6" },
-    { label: lang === "EN" ? "Main / Side" : "主角 / 路人", val: p.axes.V, color: "#bae089" },
-  ];
+
+  const [lang, setLang] = useState<"en" | "zh">("en");
+
+  useEffect(() => {
+    const browserLang = navigator.language || "";
+    if (browserLang.startsWith("zh")) {
+      setLang("zh");
+    }
+  }, []);
+
   return (
-    <main className="min-h-screen bg-[#f9f7ef] p-6 flex flex-col items-center text-center">
-      {/* 语言切换按钮 */}
-      <button 
-        onClick={() => setLang(lang === "EN" ? "CN" : "EN")} 
-        className="mb-8 font-bold text-[#03547c] border-2 px-6 py-2 rounded-full bg-white shadow-sm"
-      >
-        {lang === "EN" ? "EN -> 中" : "中 -> EN"}
-      </button>
-      <h1 className="text-5xl font-black text-[#03547c] mb-6">{p.name}</h1>
-      
-      <img 
-        src={`/assets/personalities/${code}.jpg`} 
-        alt={p.name} 
-        className="w-full max-w-sm rounded-3xl border-4 border-[#83d4d6] shadow-xl mb-6"
-      />
-      
-      <p className="italic text-zinc-600 text-lg mb-8">
-        &ldquo;{lang === "EN" ? p.quote : p.quoteCN}&rdquo;
-      </p>
-      
-      {/* 维度分析图 */}
-      <div className="bg-white rounded-3xl p-6 mb-8 w-full max-w-lg text-left shadow-sm">
-        <h3 className="font-bold text-zinc-800 mb-4">{lang === "EN" ? "Vibe Analysis" : "维度分析"}</h3>
-        {axes.map((ax, i) => (
-          <div key={i} className="mb-4">
-            <div className="flex justify-between text-xs font-bold text-zinc-500 mb-1">
-              <span>{lang === "EN" ? "Low" : "低"}</span>
-              <span>{lang === "EN" ? "High" : "高"}</span>
-            </div>
-            <div className="w-full h-4 bg-zinc-100 rounded-full overflow-hidden flex">
-              <div className="h-full" style={{ width: '50%', backgroundColor: ax.val < 0 ? ax.color : '#e5e7eb' }} />
-              <div className="h-full" style={{ width: '50%', backgroundColor: ax.val > 0 ? ax.color : '#e5e7eb' }} />
-            </div>
-            <p className="text-xs font-semibold text-zinc-400 mt-1">{ax.label}</p>
+    <div className="min-h-screen" style={{ backgroundColor: "#f9f7ef" }}>
+      <div className="max-w-md mx-auto px-4 py-8">
+
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <Link href="/" className="text-xl font-bold" style={{ color: "#03547c" }}>
+            dumb-ti
+          </Link>
+          {/* Language toggle */}
+          <div className="flex rounded-full overflow-hidden border-2 text-sm font-bold" style={{ borderColor: "#03547c" }}>
+            <button
+              onClick={() => setLang("en")}
+              className="px-4 py-1.5 transition-colors"
+              style={{
+                backgroundColor: lang === "en" ? "#03547c" : "transparent",
+                color: lang === "en" ? "white" : "#03547c",
+              }}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLang("zh")}
+              className="px-4 py-1.5 transition-colors"
+              style={{
+                backgroundColor: lang === "zh" ? "#03547c" : "transparent",
+                color: lang === "zh" ? "white" : "#03547c",
+              }}
+            >
+              中文
+            </button>
           </div>
-        ))}
-      </div>
-      <div className="bg-white rounded-3xl p-8 shadow-sm text-left mb-8 max-w-lg">
-        <p className="text-zinc-800 text-lg leading-relaxed">
-          {lang === "EN" ? p.description : p.descriptionCN}
+        </div>
+
+        {/* Personality image */}
+        <div className="rounded-3xl overflow-hidden mb-6 shadow-sm">
+          <Image
+            src={p.image}
+            alt={p.name}
+            width={600}
+            height={600}
+            className="w-full object-cover"
+            priority
+          />
+        </div>
+
+        {/* Name — Chinese version only */}
+        {lang === "zh" && (
+          <div className="text-center mb-3">
+            <h1 className="text-4xl font-bold" style={{ color: "#03547c" }}>
+              {p.nameCN}
+            </h1>
+          </div>
+        )}
+
+        {/* Quote */}
+        <p className="text-center text-zinc-500 italic mb-8 px-4 leading-relaxed">
+          &ldquo;{lang === "zh" ? p.quoteCN : p.quote}&rdquo;
         </p>
+
+        {/* Vibe Breakdown */}
+        <div className="bg-white rounded-3xl p-6 mb-6 shadow-sm">
+          <h2 className="text-sm font-semibold text-zinc-400 uppercase tracking-widest mb-5">
+            {lang === "zh" ? "你的维度分析" : "Your Vibe Breakdown"}
+          </h2>
+          <div className="flex flex-col gap-5">
+            {(Object.keys(axisLabels) as Array<keyof typeof axisLabels>).map((axis, i) => {
+              const val = p.axes[axis];
+              const labels = axisLabels[axis];
+              // val range: -1.0 to 1.0; center = 50%; each side max = 50%
+              const fillPct = Math.abs(val) * 50;
+              const isPos = val >= 0;
+              const color = accentColors[i];
+
+              return (
+                <div key={axis}>
+                  <div className="flex justify-between text-xs font-semibold text-zinc-500 mb-2">
+                    <span>{labels.neg}</span>
+                    <span>{labels.pos}</span>
+                  </div>
+                  <div className="relative w-full h-3 bg-zinc-100 rounded-full overflow-hidden">
+                    {isPos ? (
+                      <div
+                        className="absolute top-0 h-full rounded-full"
+                        style={{ left: "50%", width: `${fillPct}%`, backgroundColor: color }}
+                      />
+                    ) : (
+                      <div
+                        className="absolute top-0 h-full rounded-full"
+                        style={{ right: "50%", width: `${fillPct}%`, backgroundColor: color }}
+                      />
+                    )}
+                    {/* Center divider */}
+                    <div className="absolute top-0 bottom-0 w-0.5 bg-zinc-300" style={{ left: "50%" }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Description */}
+        <div className="bg-white rounded-3xl p-6 mb-6 shadow-sm">
+          <p className="text-zinc-700 leading-relaxed">
+            {lang === "zh" ? p.descriptionCN : p.description}
+          </p>
+        </div>
+
+        {/* Activity banner */}
+        <div className="rounded-3xl p-6 mb-6" style={{ backgroundColor: "#ea98e644", border: "2px solid #ea98e6" }}>
+          <p className="font-bold text-zinc-800 mb-1">
+            {lang === "zh" ? "🎉 限时活动 · 前3天专属" : "🎉 Limited Offer — First 3 Days Only"}
+          </p>
+          <p className="text-sm text-zinc-700 mb-4">
+            {lang === "zh"
+              ? "在 X 或 Instagram 上分享你的测试结果，并私信给我们截图，即可免费解锁价值 $3.9 的 Pro 版本。"
+              : "Share your result on X or Instagram and DM us proof to unlock the Pro version ($3.9 value) for FREE."}
+          </p>
+          <div className="flex gap-3">
+            <button
+              className="flex-1 py-3 rounded-2xl text-sm font-bold text-white transition-opacity hover:opacity-90"
+              style={{ backgroundColor: "#03547c" }}
+            >
+              {lang === "zh" ? "分享到 X" : "Share on X"}
+            </button>
+            <button
+              className="flex-1 py-3 rounded-2xl text-sm font-bold text-white transition-opacity hover:opacity-90"
+              style={{ backgroundColor: "#ea98e6" }}
+            >
+              {lang === "zh" ? "分享到 Instagram" : "Share on Instagram"}
+            </button>
+          </div>
+        </div>
+
+        {/* Retake */}
+        <Link
+          href="/quiz"
+          className="block w-full py-4 rounded-full font-black text-white text-center"
+          style={{ backgroundColor: "#03547c" }}
+        >
+          {lang === "zh" ? "重新测试 →" : "Retake Quiz →"}
+        </Link>
+
       </div>
-      
-      <button 
-        onClick={() => window.location.href = "/quiz"}
-        className="w-full max-w-lg py-5 rounded-2xl font-black text-white text-xl bg-[#03547c] hover:bg-[#024060] transition-all"
-      >
-        {lang === "EN" ? "Retake Quiz ↺" : "重新测试 ↺"}
-      </button>
-    </main>
+    </div>
   );
 }
+
 export default function ResultPage() {
-  return <Suspense fallback={<div>Loading...</div>}><ResultContent /></Suspense>;
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#f9f7ef]" />}>
+      <ResultContent />
+    </Suspense>
+  );
 }
